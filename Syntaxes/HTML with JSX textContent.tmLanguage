@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array/>
+	<key>injectionSelector</key>
+	<string>text.html$ -meta.tag</string>
+	<key>name</key>
+	<string>HTML with JSX textContent</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>begin</key>
+			<string>\{</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.embedded.begin.jsx</string>
+				</dict>
+			</dict>
+			<key>contentName</key>
+			<string>source.js.jsx</string>
+			<key>end</key>
+			<string>}</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.embedded.end.jsx</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.embedded.expression.jsx</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.js.jsx</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.js.jsx.react</string>
+	<key>uuid</key>
+	<string>82F0C794-92B6-4F54-9D7C-C9F37FFD1460</string>
+</dict>
+</plist>

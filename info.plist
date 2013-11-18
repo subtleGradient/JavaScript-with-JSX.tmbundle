@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>boyvivbhf@fhogyrtenqvrag.pbz</string>
+	<key>contactName</key>
+	<string>Thomas Aylott</string>
+	<key>description</key>
+	<string>JSX Syntax for JavaScript. See http://facebook.github.io/react/</string>
+	<key>name</key>
+	<string>JavaScript with JSX by Facebook</string>
+	<key>require</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>HTML5 — SubtleGradient</string>
+			<key>uuid</key>
+			<string>630DEED4-EA5C-4592-9C06-6F9823C50718</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>JavaScript — SubtleGradient</string>
+			<key>uuid</key>
+			<string>5B49710E-9A49-4BE0-BD45-6A9CB683C191</string>
+		</dict>
+	</array>
+	<key>uuid</key>
+	<string>4BA07E1A-2EA6-49F3-9F14-8A6ACA3F9617</string>
+</dict>
+</plist>
