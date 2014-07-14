@@ -9,7 +9,7 @@
 	<key>description</key>
 	<string>JSX Syntax for JavaScript. See http://facebook.github.io/react/</string>
 	<key>name</key>
-	<string>JavaScript with JSX by Facebook</string>
+	<string>JavaScript with JSX</string>
 	<key>require</key>
 	<array>
 		<dict>

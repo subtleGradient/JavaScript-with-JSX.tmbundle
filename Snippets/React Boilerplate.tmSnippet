@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.11.0/es6-shim.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://fb.me/react-with-addons-0.11.0-rc1.js"&gt;&lt;/script&gt;
+&lt;script src="http://fb.me/JSXTransformer-0.11.0-rc1.js"&gt;&lt;/script&gt;
+
+&lt;div id="${1:${TM_FILENAME/\..*|\W//g}}Root"&gt;&lt;/div&gt;
+
+&lt;script type="text/jsx;harmony=true"&gt;/** @jsx React.DOM */
+
+var $1 = React.createClass({
+  render(){
+    return (
+      &lt;div&gt;
+        ${0:Hello World}
+      &lt;/div&gt;
+    );
+  }
+});
+
+React.renderComponent(&lt;$1 /&gt;, document.getElementById('$1Root'));
+
+&lt;/script&gt;
+</string>
+	<key>name</key>
+	<string>React Boilerplate</string>
+	<key>scope</key>
+	<string>text.html</string>
+	<key>tabTrigger</key>
+	<string>react</string>
+	<key>uuid</key>
+	<string>1B7CE152-0B5B-462C-B709-FDA7F744726A</string>
+</dict>
+</plist>
