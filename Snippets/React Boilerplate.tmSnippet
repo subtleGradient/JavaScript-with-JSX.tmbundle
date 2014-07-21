@@ -12,16 +12,19 @@
 &lt;script type="text/jsx;harmony=true"&gt;/** @jsx React.DOM */
 
 var $1 = React.createClass({
-  render(){
-    return (
-      &lt;div&gt;
-        ${0:Hello World}
-      &lt;/div&gt;
-    );
-  }
+	render(){
+		return (
+			&lt;div&gt;
+				${0:Hello World}
+			&lt;/div&gt;
+		);
+	},
 });
 
-React.renderComponent(&lt;$1 /&gt;, document.getElementById('$1Root'));
+React.renderComponent(
+	&lt;$1 /&gt;,
+	document.getElementById('$1Root')
+);
 
 &lt;/script&gt;
 </string>
