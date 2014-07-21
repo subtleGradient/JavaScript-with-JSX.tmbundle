@@ -5,7 +5,7 @@
 	<key>fileTypes</key>
 	<array/>
 	<key>injectionSelector</key>
-	<string>text.html$ -meta.tag, meta.tag.block.begin.*.jsx$</string>
+	<string>text.html$ -meta.tag, meta.tag.block.begin.**.jsx$, meta.scope.jsx$</string>
 	<key>name</key>
 	<string>HTML with JSX textContent</string>
 	<key>patterns</key>

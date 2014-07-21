@@ -301,7 +301,7 @@
 					<key>begin</key>
 					<string>(?=(&lt;)([a-zA-Z0-9_$][^\s&lt;/&gt;]*))</string>
 					<key>contentName</key>
-					<string>meta.block.inner.${2/:/./g}.jsx</string>
+					<string>meta.block.inner.${2/[:.]/-/g}.jsx</string>
 					<key>end</key>
 					<string>(&lt;/)(\2)(&gt;)|(/&gt;)</string>
 					<key>endCaptures</key>
@@ -309,21 +309,21 @@
 						<key>0</key>
 						<dict>
 							<key>name</key>
-							<string>meta.tag.block.end.${2/:/./g}.jsx</string>
+							<string>meta.tag.block.end.${2/[:.]/-/g}.jsx</string>
 						</dict>
 						<key>2</key>
 						<dict>
 							<key>name</key>
-							<string>entity.name.tag.${2/:/./g}.jsx</string>
+							<string>entity.name.tag.${2/[:.]/-/g}.jsx</string>
 						</dict>
 						<key>4</key>
 						<dict>
 							<key>name</key>
-							<string>meta.tag.block.begin.${2/:/./g}.jsx</string>
+							<string>meta.tag.block.begin.${2/[:.]/-/g}.jsx</string>
 						</dict>
 					</dict>
 					<key>name</key>
-					<string>meta.scope.tag.block.${2/:/./g}.jsx</string>
+					<string>meta.scope.tag.block.${2/[:.]/-/g}.jsx</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -334,13 +334,13 @@
 								<key>2</key>
 								<dict>
 									<key>name</key>
-									<string>entity.name.tag.${2/:/./g}.jsx</string>
+									<string>entity.name.tag.${2/[:.]/-/g}.jsx</string>
 								</dict>
 							</dict>
 							<key>end</key>
 							<string>&gt;|(?=/&gt;)</string>
 							<key>name</key>
-							<string>meta.tag.block.begin.${2/:/./g}.jsx</string>
+							<string>meta.tag.block.begin.${2/[:.]/-/g}.jsx</string>
 							<key>patterns</key>
 							<array>
 								<dict>
