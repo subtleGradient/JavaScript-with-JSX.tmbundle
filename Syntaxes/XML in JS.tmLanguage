@@ -18,8 +18,24 @@
 		<dict>
 			<key>begin</key>
 			<string>`</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.begin.es6</string>
+				</dict>
+			</dict>
 			<key>end</key>
 			<string>`</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.end.es6</string>
+				</dict>
+			</dict>
 			<key>name</key>
 			<string>string.quoted.other.es6</string>
 			<key>patterns</key>
@@ -59,11 +75,60 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>$base</string>
+							<string>$self</string>
 						</dict>
 					</array>
 				</dict>
 			</array>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>variable.other.readwrite.js</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.class.typescriptish</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.separator.continuation.typescriptish</string>
+				</dict>
+				<key>4</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.function.name</string>
+				</dict>
+				<key>5</key>
+				<dict>
+					<key>name</key>
+					<string>meta.something</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>([_$a-zA-Z][_$a-zA-Z0-9]*)(\s*(:)\s*([_$a-zA-Z][_$a-zA-Z0-9]*)(?:&lt;([^&gt;]*)&gt;)?)</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>variable.other.readwrite.js</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.class.typescriptish</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>([_$a-zA-Z][_$a-zA-Z0-9]*)\s*(&lt;[^&gt;]*&gt;)</string>
 		</dict>
 		<dict>
 			<key>captures</key>
@@ -83,6 +148,12 @@
 			<string>(/\*)(?:\??[_$a-zA-Z0-9]+(?:&lt;[^&gt;]+&gt;)?\|?)+(\*/ )</string>
 			<key>name</key>
 			<string>storage.type.class.hack</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;=[_$a-zA-Z0-9\)\]\}&gt;])\s*&lt;</string>
+			<key>name</key>
+			<string>keyword.operator.comparison.js</string>
 		</dict>
 		<dict>
 			<key>include</key>
