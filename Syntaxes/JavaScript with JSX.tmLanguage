@@ -110,6 +110,8 @@
 					<string>meta.something</string>
 				</dict>
 			</dict>
+			<key>disabled</key>
+			<integer>1</integer>
 			<key>match</key>
 			<string>([_$a-zA-Z][_$a-zA-Z0-9]*)(\s*(:)\s*([_$a-zA-Z][_$a-zA-Z0-9]*)(?:&lt;([^&gt;]*)&gt;)?)</string>
 		</dict>
