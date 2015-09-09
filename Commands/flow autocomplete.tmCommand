@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env bash -l
+cd "$TM_DIRECTORY"
+
+suggestions_raw="$(
+  cat \
+    | flow autocomplete "$TM_FILEPATH" $TM_LINE_NUMBER $TM_COLUMN_NUMBER \
+    | cut -d ' ' -f 1 \
+    | sed -E 's/(.+)/{display=\1;},/'
+)"
+
+if [[ "$suggestions_raw" == '' ]]; then
+  "$DIALOG" tooltip --text "No suggestions :'(" &amp;
+  exit
+fi
+
+"$DIALOG" popup --suggestions "($suggestions_raw)"
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>name</key>
+	<string>flow autocomplete</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>toolTip</string>
+	<key>scope</key>
+	<string>source.js</string>
+	<key>semanticClass</key>
+	<string>flow.autocomplete</string>
+	<key>uuid</key>
+	<string>D0AF8296-0D72-45BF-80C5-DBEF623D3076</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

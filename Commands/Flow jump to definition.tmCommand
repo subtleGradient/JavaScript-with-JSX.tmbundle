@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>command</key>
+	<string>#!/usr/bin/env bash -l
+cd "$TM_DIRECTORY"
+
+Definition="$(cat | flow get-def "$TM_FILEPATH" $TM_LINE_NUMBER $TM_COLUMN_NUMBER --from TextMate)"
+
+File="$(echo $Definition | cut -d ':' -f 1)"
+Line="$(echo $Definition | cut -d ':' -f 2-999 | tr ',' '-')"
+
+# echo mate --line "$Line" "$File"
+
+if [[ ! -e "$File" ]]; then
+  echo "Not found"
+  exit
+fi
+
+mate --line "$Line" "$File"
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>keyEquivalent</key>
+	<string>~@</string>
+	<key>name</key>
+	<string>Flow jump to definition</string>
+	<key>outputLocation</key>
+	<string>toolTip</string>
+	<key>scope</key>
+	<string>source.js</string>
+	<key>uuid</key>
+	<string>F1359C61-C51B-42A9-9828-69E6F5A20160</string>
+</dict>
+</plist>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>flow.autocomplete</string>
+	<key>keyEquivalent</key>
+	<string>^ </string>
+	<key>name</key>
+	<string>flow autocomplete manually</string>
+	<key>scope</key>
+	<string>source.js</string>
+	<key>uuid</key>
+	<string>C8335665-8453-47AD-BA33-7C3EF56DAF12</string>
+</dict>
+</plist>
