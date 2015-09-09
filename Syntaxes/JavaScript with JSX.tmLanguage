@@ -130,7 +130,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>([_$a-zA-Z][_$a-zA-Z0-9]*)\s*(&lt;[^&gt;]*&gt;)</string>
+			<string>([_$a-zA-Z][_$a-zA-Z0-9]*)(&lt;[^&gt;]*&gt;)</string>
 		</dict>
 		<dict>
 			<key>captures</key>
@@ -371,10 +371,14 @@
 			<key>patterns</key>
 			<array>
 				<dict>
+					<key>match</key>
+					<string>&lt;/([^&gt;]*)&gt;</string>
+					<key>name</key>
+					<string>invalid.illegal.tag.end.${1/[:.]/-/g}.jsx</string>
+				</dict>
+				<dict>
 					<key>begin</key>
 					<string>(?=(&lt;)([a-zA-Z0-9_$][^\s&lt;/&gt;]*))</string>
-					<key>contentName</key>
-					<string>meta.block.inner.${2/[:.]/-/g}.jsx</string>
 					<key>end</key>
 					<string>(&lt;/)(\2)(&gt;)|(/&gt;)</string>
 					<key>endCaptures</key>
@@ -411,7 +415,7 @@
 								</dict>
 							</dict>
 							<key>end</key>
-							<string>&gt;|(?=/&gt;)</string>
+							<string>(&gt;)|(?=/&gt;)</string>
 							<key>name</key>
 							<string>meta.tag.block.begin.${2/[:.]/-/g}.jsx</string>
 							<key>patterns</key>
@@ -423,8 +427,20 @@
 							</array>
 						</dict>
 						<dict>
+							<key>match</key>
+							<string>&lt;/([^&gt;]*)&gt;</string>
+							<key>name</key>
+							<string>invalid.illegal.tag.end.${1/[:.]/-/g}.jsx</string>
+						</dict>
+						<dict>
+							<key>match</key>
+							<string>&lt;(/[a-zA-Z0-9_$.]*)?($|\s)</string>
+							<key>name</key>
+							<string>invalid.illegal.tag.end.jsx</string>
+						</dict>
+						<dict>
 							<key>begin</key>
-							<string>(?&lt;=[^/]&gt;)</string>
+							<string>(?&lt;=&gt;)(?!&lt;$)(?!&lt;\s)(?!&lt;/)</string>
 							<key>end</key>
 							<string>(?=&lt;/)</string>
 							<key>name</key>
