@@ -8,30 +8,39 @@
 	<string>#!/usr/bin/env bash -l
 cd "$(dirname "$TM_FILEPATH")"
 
-Definition="$(cat | flow get-def "$TM_FILEPATH" $TM_LINE_NUMBER $TM_COLUMN_NUMBER --from TextMate)"
+if [[ "$TM_SELECTED_TEXT" != "" ]]; then
+  ModuleName="$TM_SELECTED_TEXT"
+else
+  ModuleName="$(cat | sed -E 's;\.\.?/|\.js;;g')"
+fi
 
-File="$(echo $Definition | cut -d ':' -f 1)"
-Line="$(echo $Definition | cut -d ':' -f 2-999 | tr ',' '-')"
+File="$(flow find-module "$ModuleName" | cut -d "'" -f 4)"
 
-# echo "$TM_MATE" --line "$Line" "$File"
+if [[ ! -f "$File" ]]; then
+  File="/$(flow get-imports "$TM_FILEPATH" | grep "/$ModuleName\." | cut -d'@' -f1 | cut -d'/' -f2-999)"
+fi
 
-if [[ ! -e "$File" ]]; then
-  echo "Not found"
+if [[ ! -f "$File" ]]; then
+  if [[ "$File" != "" ]]; then
+    echo "File '$File' not found"
+  else
+    echo "Module '$ModuleName' not found"
+  fi
   exit
 fi
 
-"$TM_MATE" --line "$Line" "$File"
+"$TM_MATE" "$File"
 
 "$TM_BUNDLE_SUPPORT/Add Cursor Location to History.sh"
 </string>
 	<key>input</key>
-	<string>document</string>
+	<string>scope</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>~@</string>
 	<key>name</key>
-	<string>Flow jump to definition</string>
+	<string>Flow jump to Module</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>
@@ -39,9 +48,9 @@ fi
 	<key>outputLocation</key>
 	<string>toolTip</string>
 	<key>scope</key>
-	<string>source.js</string>
+	<string>source.js string -punctuation</string>
 	<key>uuid</key>
-	<string>F1359C61-C51B-42A9-9828-69E6F5A20160</string>
+	<string>9366AFC6-1AA2-478C-8E0C-9B86A92EC488</string>
 	<key>version</key>
 	<integer>2</integer>
 </dict>

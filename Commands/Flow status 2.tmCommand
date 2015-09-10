@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env bash -l
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
+. "${TM_SUPPORT_PATH}/lib/html.sh"
+. "${TM_SUPPORT_PATH}/lib/webpreview.sh"
+
+cd "$(dirname "$TM_FILEPATH")"
+
+require_cmd flow
+
+GLAR="$(flow status &amp;&amp; cat | flow check-contents "$TM_FILENAME")"
+
+if [[ $? == 0 ]]; then
+  exit_show_tool_tip "No flow errors!"
+fi
+
+html_header "Flow Status"
+css &lt;&lt;CSS
+* {font-size:12px}
+CSS
+
+echo "$GLAR" \
+  | pre \
+  | sed -E 's;(/[a-zA-Z][^:]+):([0-9]+):([0-9]+),?([0-9]+:)*;&lt;a href="txmt://open?url=file://\1\&amp;line=\2\&amp;column=\3"&gt;\1&lt;/a&gt;;g' \
+  | sed -E "s;&gt;$TM_DIRECTORY/;&gt;;g" \
+
+html_footer
+exit_show_html
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^V</string>
+	<key>name</key>
+	<string>Flow status</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>discard</string>
+	<key>scope</key>
+	<string>source.js.jsx</string>
+	<key>uuid</key>
+	<string>FA79F210-7974-4400-AC50-B2105628D8BA</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -5,29 +5,33 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/usr/bin/env bash -l
-cd "$(dirname "$TM_FILEPATH")"
+	<string>#!/usr/bin/env bash
+Bookmarks="$TMPDIR/.TextMate_Cursor_History.urls"
 
-suggestions_raw="$(
-  cat \
-    | flow autocomplete "$TM_FILEPATH" $TM_LINE_NUMBER $TM_COLUMN_NUMBER \
-    | cut -d ' ' -f 1 \
-    | sed -E 's/(.+)/{display=\1;},/'
-)"
-
-if [[ "$suggestions_raw" == '' ]]; then
-  "$DIALOG" tooltip --text "No suggestions :'(" &amp;
+if [[ ! -f "$Bookmarks" ]]; then
+  echo "No history yet"
   exit
 fi
 
-"$DIALOG" popup --suggestions "($suggestions_raw)"
+URL="$(tail -n 1 "$Bookmarks")"
+if [[ "$URL" == "" ]]; then
+  echo "No history"
+  exit
+fi
+open "$URL"
+
+cat "$Bookmarks" | awk 'NR&gt;1{print p}{p=$0}' &gt; "$Bookmarks.NEXT"
+rm "$Bookmarks"
+mv "$Bookmarks.NEXT" "$Bookmarks"
 </string>
 	<key>input</key>
-	<string>document</string>
+	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>~$@</string>
 	<key>name</key>
-	<string>flow autocomplete</string>
+	<string>Goto &amp; Pop Cursor History</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>
@@ -36,10 +40,8 @@ fi
 	<string>toolTip</string>
 	<key>scope</key>
 	<string>source.js</string>
-	<key>semanticClass</key>
-	<string>flow.autocomplete</string>
 	<key>uuid</key>
-	<string>D0AF8296-0D72-45BF-80C5-DBEF623D3076</string>
+	<string>EA0766C5-C3D4-42EB-8794-C889D811EAE7</string>
 	<key>version</key>
 	<integer>2</integer>
 </dict>
