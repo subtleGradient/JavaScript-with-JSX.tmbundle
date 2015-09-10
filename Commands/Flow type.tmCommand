@@ -6,30 +6,17 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>#!/usr/bin/env bash -l
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
 cd "$(dirname "$TM_FILEPATH")"
 
-Definition="$(cat | flow get-def "$TM_FILEPATH" $TM_LINE_NUMBER $TM_COLUMN_NUMBER --from TextMate)"
-
-File="$(echo $Definition | cut -d ':' -f 1)"
-Line="$(echo $Definition | cut -d ':' -f 2-999 | tr ',' '-')"
-
-# echo "$TM_MATE" --line "$Line" "$File"
-
-if [[ ! -e "$File" ]]; then
-  echo "Not found"
-  exit
-fi
-
-"$TM_MATE" --line "$Line" "$File"
-
-"$TM_BUNDLE_SUPPORT/Add Cursor Location to History.sh"
+cat | flow type-at-pos "$TM_FILENAME" $TM_LINE_NUMBER $TM_COLUMN_NUMBER | head -n 1
 </string>
 	<key>input</key>
 	<string>document</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>name</key>
-	<string>Flow jump to definition</string>
+	<string>Flow type</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>
@@ -37,11 +24,11 @@ fi
 	<key>outputLocation</key>
 	<string>toolTip</string>
 	<key>scope</key>
-	<string>source.js</string>
+	<string>(dyn.modifier.option -dyn.modifier.command) &amp; source.js</string>
 	<key>semanticClass</key>
-	<string>flow.jump-to-def</string>
+	<string>callback.mouse-click</string>
 	<key>uuid</key>
-	<string>F1359C61-C51B-42A9-9828-69E6F5A20160</string>
+	<string>D28B319D-C2E7-41A4-BCCD-8C31029FCB7C</string>
 	<key>version</key>
 	<integer>2</integer>
 </dict>

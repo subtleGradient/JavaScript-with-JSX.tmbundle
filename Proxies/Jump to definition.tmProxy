@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>flow.jump-to-def</string>
+	<key>name</key>
+	<string>Jump to definition (⌥⌘ click)</string>
+	<key>scope</key>
+	<string>(dyn.modifier.option &amp; dyn.modifier.command) &amp; source.js</string>
+	<key>semanticClass</key>
+	<string>callback.mouse-click</string>
+	<key>uuid</key>
+	<string>9B5D27E2-3F33-41CA-A497-D5A9BEF05275</string>
+</dict>
+</plist>

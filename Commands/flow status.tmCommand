@@ -10,7 +10,7 @@
 . "${TM_SUPPORT_PATH}/lib/html.sh"
 . "${TM_SUPPORT_PATH}/lib/webpreview.sh"
 
-cd "$TM_DIRECTORY"
+cd "$(dirname "$TM_FILEPATH")"
 
 FlowResponse="$(
   cat | flow check-contents "$TM_FILENAME" 2&gt; "$TMPDIR/flow-stderr.log"

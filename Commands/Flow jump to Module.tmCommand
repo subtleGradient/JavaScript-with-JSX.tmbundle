@@ -37,8 +37,6 @@ fi
 	<string>scope</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>~@</string>
 	<key>name</key>
 	<string>Flow jump to Module</string>
 	<key>outputCaret</key>
@@ -49,6 +47,8 @@ fi
 	<string>toolTip</string>
 	<key>scope</key>
 	<string>source.js string -punctuation</string>
+	<key>semanticClass</key>
+	<string>flow.jump-to-def</string>
 	<key>uuid</key>
 	<string>9366AFC6-1AA2-478C-8E0C-9B86A92EC488</string>
 	<key>version</key>

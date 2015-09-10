@@ -49,6 +49,8 @@ fi
 
 "$TM_BUNDLE_SUPPORT/Add Cursor Location to History.sh"
 </string>
+	<key>contentMatch</key>
+	<string>flow.get-importers</string>
 	<key>input</key>
 	<string>none</string>
 	<key>inputFormat</key>

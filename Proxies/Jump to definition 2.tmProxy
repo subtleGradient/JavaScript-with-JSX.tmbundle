@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>flow.jump-to-def</string>
+	<key>keyEquivalent</key>
+	<string>~@</string>
+	<key>name</key>
+	<string>Jump to definition (⌥⌘↩)</string>
+	<key>scope</key>
+	<string>source.js</string>
+	<key>uuid</key>
+	<string>C7E00D5E-FCDD-4A54-B32C-0096E9CDAEA4</string>
+</dict>
+</plist>

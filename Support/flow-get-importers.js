@@ -5,8 +5,9 @@ if (!paths) {
 }
 
 console.log(
-  '(' +
-  paths.map(function(path){
+  '('
+  + "{header = 1; title = 'Modules that import this one';},"
+  + paths.map(function(path){
     var title = path.split('/').reverse()[0].split('.')[0];
     return '{title = ' + title + ';}'
   })
