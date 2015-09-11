@@ -46,7 +46,7 @@ fi
 	<key>outputLocation</key>
 	<string>toolTip</string>
 	<key>scope</key>
-	<string>source.js string -punctuation</string>
+	<string>source.js string -punctuation, source.js entity.name.tag</string>
 	<key>semanticClass</key>
 	<string>flow.jump-to-def</string>
 	<key>uuid</key>
