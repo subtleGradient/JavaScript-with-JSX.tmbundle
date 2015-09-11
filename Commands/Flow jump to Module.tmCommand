@@ -21,7 +21,7 @@ if [[ ! -f "$File" ]]; then
 fi
 
 if [[ ! -f "$File" ]]; then
-  if [[ "$File" != "" ]]; then
+  if [[ "$File" != "/" ]]; then
     echo "File '$File' not found"
   else
     echo "Module '$ModuleName' not found"
