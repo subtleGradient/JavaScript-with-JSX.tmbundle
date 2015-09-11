@@ -17,9 +17,9 @@ FlowResponse="$(
 )"
 FlowError="$(&lt;"$TMPDIR/flow-stderr.log")"
 
-if [[ $? == 0 ]]; then
-  exit_show_tool_tip "No flow errors!"
-fi
+# if [[ $? == 0 ]]; then
+#   exit_show_tool_tip "No flow errors!"
+# fi
 
 if [[ "$FlowError" == *"Could not find a .flowconfig"* ]]; then
   exit_show_tool_tip "Didn't check for errors because
