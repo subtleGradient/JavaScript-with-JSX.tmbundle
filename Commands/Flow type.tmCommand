@@ -6,10 +6,9 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>#!/usr/bin/env bash -l
-[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
 cd "$(dirname "$TM_FILEPATH")"
 
-cat | flow type-at-pos "$TM_FILENAME" $TM_LINE_NUMBER $TM_COLUMN_NUMBER | head -n 1
+cat | flow type-at-pos "$TM_FILEPATH" $TM_LINE_NUMBER $TM_COLUMN_NUMBER | head -n 1
 </string>
 	<key>input</key>
 	<string>document</string>
