@@ -11,18 +11,20 @@ cd "$(dirname "$TM_FILEPATH")"
 
 require_cmd flow
 export FlowResponse="$(
-  flow get-importers "$TM_FILEPATH" --json --from TextMate
+  flow get-importers "$TM_FILEPATH" "$TM_FILENAME" "${TM_FILENAME/%.js}" --json --from TextMate
 )"
-if [[ $? != 0 ]]; then
-  echo "flow get-importers didn't get any importers :'("
-  exit
-fi
+# echo "FlowResponse='$FlowResponse'"
+# if [[ $? != 0 ]]; then
+#   echo "flow get-importers didn't get any importers :'("
+#   exit
+# fi
 
 require_cmd node
 FlowMenuItems="$(
   node "$TM_BUNDLE_SUPPORT/flow-get-importers.js" 2&gt; "$TMPDIR/.flow-get-importers-result"
 )"
 FlowPaths="$(&lt;"$TMPDIR/.flow-get-importers-result")"
+# echo "FlowPaths='$FlowPaths'"
 
 Choice="$(
   "$DIALOG" menu --items "$FlowMenuItems" | plutil -convert json - -o - | cut -d'"' -f4
@@ -33,10 +35,14 @@ File="$(
 )"
 
 if [[ ! -f "$File" ]]; then
-  if [[ "$File" != "" ]]; then
-    echo "File '$File' not found"
-  else
+  File="$(flow find-module "$File" | cut -d "'" -f 4)"
+fi
+
+if [[ ! -f "$File" ]]; then
+  if [[ "$File" == "" ]]; then
     echo "flow get-importers didn't get any importers :'("
+  else
+    echo "File '$File' not found"
   fi
   # echo "
   #   FlowPaths='$FlowPaths'

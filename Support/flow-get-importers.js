@@ -1,5 +1,5 @@
 var importers = JSON.parse(process.env.FlowResponse || '{}');
-var paths = importers[process.env.TM_FILEPATH];
+var paths = importers[Object.keys(importers)[0]];
 if (!paths) {
   process.exit();
 }
@@ -16,5 +16,5 @@ console.log(
 )
 
 console.warn(
-  importers[process.env.TM_FILEPATH].join('\n')
+  paths.join('\n')
 )
