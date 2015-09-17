@@ -21,7 +21,7 @@ export FlowResponse="$(
 
 require_cmd node
 FlowMenuItems="$(
-  node "$TM_BUNDLE_SUPPORT/flow-get-importers.js" 2&gt; "$TMPDIR/.flow-get-importers-result"
+  node "$TM_BUNDLE_SUPPORT/build/flow-get-importers.js" 2&gt; "$TMPDIR/.flow-get-importers-result"
 )"
 FlowPaths="$(&lt;"$TMPDIR/.flow-get-importers-result")"
 # echo "FlowPaths='$FlowPaths'"
