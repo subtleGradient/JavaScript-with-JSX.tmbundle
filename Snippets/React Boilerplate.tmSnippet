@@ -3,25 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.11.0/es6-shim.min.js"&gt;&lt;/script&gt;
-&lt;script src="http://fb.me/react-with-addons-0.11.1.js"&gt;&lt;/script&gt;
-&lt;script src="http://fb.me/JSXTransformer-0.11.1.js"&gt;&lt;/script&gt;
+	<string>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://fb.me/react-with-addons-0.13.3.js"&gt;&lt;/script&gt;
 
 &lt;div id="${1:${TM_FILENAME/\..*|\W//g}}Root"&gt;&lt;/div&gt;
 
-&lt;script type="text/jsx;harmony=true"&gt;/** @jsx React.DOM */
+&lt;script type="text/babel"&gt;
+/* @flow */
 
-var $1 = React.createClass({
-	render(){
-		return (
-			&lt;div&gt;
-				${0:Hello World}
-			&lt;/div&gt;
-		);
-	},
-});
+var $1 = React.$0
 
-React.renderComponent(
+React.render(
 	&lt;$1 /&gt;,
 	document.getElementById('$1Root')
 );
@@ -32,8 +25,8 @@ React.renderComponent(
 	<string>React Boilerplate</string>
 	<key>scope</key>
 	<string>text.html</string>
-	<key>tabTrigger</key>
-	<string>react</string>
+	<key>semanticClass</key>
+	<string>react.snippet</string>
 	<key>uuid</key>
 	<string>1B7CE152-0B5B-462C-B709-FDA7F744726A</string>
 </dict>
