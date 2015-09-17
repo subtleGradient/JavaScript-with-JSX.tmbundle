@@ -16,6 +16,49 @@
 	<key>patterns</key>
 	<array>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>(return)\s*(?=&lt;)</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(return)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?=;)|$</string>
+			<key>name</key>
+			<string>meta.expression.es</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#object</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#square</string>
+		</dict>
+		<dict>
 			<key>begin</key>
 			<string>`</string>
 			<key>beginCaptures</key>
@@ -188,6 +231,14 @@
 					<key>patterns</key>
 					<array>
 						<dict>
+							<key>begin</key>
+							<string>&lt;</string>
+							<key>end</key>
+							<string>&gt;</string>
+							<key>name</key>
+							<string>storage.modifier.flow</string>
+						</dict>
+						<dict>
 							<key>include</key>
 							<string>#method</string>
 						</dict>
@@ -239,7 +290,7 @@
 			<key>comment</key>
 			<string>14.2 Arrow Function Definitions http://www.ecma-international.org/ecma-262/6.0/#sec-arrow-function-definitions</string>
 			<key>match</key>
-			<string>(?:([_$a-z][_$a-z0-9]*)\s*(=)\s*)?\b(?i)(([_$a-z][_$a-z0-9]*))\b\s*(=&gt;)\s?</string>
+			<string>(?:((?:[_$a-z]|@@)[_$a-z0-9]*)\s*(=)\s*)?(?i)(((?:[_$a-z]|@@)[_$a-z0-9]*))\b\s*(=&gt;)\s?</string>
 			<key>name</key>
 			<string>meta.function.arrow.${1:-unnamed}.with-only-one-arg</string>
 		</dict>
@@ -283,7 +334,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>\b(function|(?:get|set)(?=\s+[_$a-zA-Z]))\b(?:\s+((?i)[_$a-z][_$a-z0-9]*))?</string>
+			<string>\b(function|(?:get|set)(?=\s+[_$a-zA-Z]))(?:\s+((?i)(?:[_$a-z]|@@)[_$a-z0-9]*)\b(&lt;[^&gt;]*&gt;)?)?</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -296,11 +347,16 @@
 					<key>name</key>
 					<string>entity.name.function.$1.es</string>
 				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.flow</string>
+				</dict>
 			</dict>
 			<key>comment</key>
 			<string>13 Function Definition http://es5.github.com/#x13</string>
 			<key>end</key>
-			<string>(?&lt;=})</string>
+			<string>(?&lt;=})|(?=[;,])</string>
 			<key>name</key>
 			<string>meta.$1.${2:-unnamed}</string>
 			<key>patterns</key>
@@ -315,19 +371,17 @@
 						<dict>
 							<key>begin</key>
 							<string>\G(?!\()</string>
-							<key>comment</key>
-							<string>function name</string>
 							<key>end</key>
 							<string>(?=\()</string>
 							<key>patterns</key>
 							<array>
 								<dict>
 									<key>include</key>
-									<string>#comments</string>
+									<string>source.js#comments</string>
 								</dict>
 								<dict>
 									<key>match</key>
-									<string>\b(?i)[_$a-z][_$a-z0-9]*\b</string>
+									<string>\b(?i)(?:[_$a-z]|@@)[_$a-z0-9]*\b</string>
 									<key>name</key>
 									<string>entity.name.function.$1.es</string>
 								</dict>
@@ -341,32 +395,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#comments</string>
+					<string>source.js#comments</string>
 				</dict>
 				<dict>
-					<key>begin</key>
-					<string>(?&lt;=\))(?!\{)</string>
-					<key>end</key>
-					<string>(?=\{)</string>
-					<key>name</key>
-					<string>meta.directive.return-type.flow</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#comments</string>
-						</dict>
-						<dict>
-							<key>match</key>
-							<string>=&gt;</string>
-							<key>name</key>
-							<string>invalid.illegal.arrow</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#type-def</string>
-						</dict>
-					</array>
+					<key>include</key>
+					<string>#return-type</string>
 				</dict>
 				<dict>
 					<key>begin</key>
@@ -433,7 +466,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(\.)?(\b(?i)[_$a-z][_$a-z0-9]*\b)(\()</string>
+			<string>(\.)?(\b(?i)(?:[_$a-z]|@@)[_$a-z0-9]*\b)(\()</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -497,10 +530,17 @@
 					<key>begin</key>
 					<string>(?=(&lt;)([a-zA-Z0-9_$][^\s&lt;/&gt;]*))</string>
 					<key>end</key>
-					<string>(&lt;/)(\2)(&gt;)|(/&gt;)</string>
+					<string>(?x)
+						(
+							&lt;/(\2)&gt;
+							|
+							/&gt; # cannot be a lookbehind :(
+						)
+						(?:(\s*)\n)? # allows code folding to work for top level JSX tags
+					</string>
 					<key>endCaptures</key>
 					<dict>
-						<key>0</key>
+						<key>1</key>
 						<dict>
 							<key>name</key>
 							<string>meta.tag.block.end.${2/[:.]/-/g}.jsx</string>
@@ -510,10 +550,10 @@
 							<key>name</key>
 							<string>entity.name.tag.${2/[:.]/-/g}.jsx</string>
 						</dict>
-						<key>4</key>
+						<key>3</key>
 						<dict>
 							<key>name</key>
-							<string>meta.tag.block.begin.${2/[:.]/-/g}.jsx</string>
+							<string>punctuation.whitespace.embedded.trailing</string>
 						</dict>
 					</dict>
 					<key>name</key>
@@ -532,7 +572,7 @@
 								</dict>
 							</dict>
 							<key>end</key>
-							<string>(&gt;)|(?=/&gt;)</string>
+							<string>(?=/&gt;)|&gt;</string>
 							<key>name</key>
 							<string>meta.tag.block.begin.${2/[:.]/-/g}.jsx</string>
 							<key>patterns</key>
@@ -580,7 +620,7 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>(?i)([_$a-zA-Z][_$a-zA-Z0-9]*)(:)</string>
+					<string>((?i)(?:[_$a-z]|@@)[_$a-z0-9]*)(:)</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
@@ -683,11 +723,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#comments</string>
+					<string>source.js#comments</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b(?i)[_$a-z][_$a-z0-9]*\b</string>
+					<string>\b(?i)(?:[_$a-z]|@@)[_$a-z0-9]*\b</string>
 					<key>name</key>
 					<string>variable.parameter.function.es</string>
 				</dict>
@@ -702,34 +742,41 @@
 					<string>punctuation.separator.parameters.function.es</string>
 				</dict>
 				<dict>
-					<key>include</key>
-					<string>$self</string>
+					<key>match</key>
+					<string>\.\.\.</string>
+					<key>name</key>
+					<string>keyword.other.rest-args.es</string>
 				</dict>
 			</array>
 		</dict>
 		<key>method</key>
 		<dict>
 			<key>begin</key>
-			<string>\b(?i)([_$a-z][_$a-z0-9]*)\b(?=\()</string>
+			<string>(?:(static)\s*)?((?i)(?:[_$a-z]|@@)[_$a-z0-9]*)\b(&lt;[^&gt;]*&gt;)?(?=\()</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>storage.modifier.static.es</string>
+				</dict>
+				<key>2</key>
 				<dict>
 					<key>name</key>
 					<string>entity.name.function.method.es</string>
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?&lt;=})</string>
+			<string>(?&lt;=})|(?=[;,])</string>
 			<key>name</key>
-			<string>meta.function.method.$1.es</string>
+			<string>meta.function.method.$2.es</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>begin</key>
 					<string>\G(?=\()</string>
 					<key>end</key>
-					<string>(?&lt;=\))</string>
+					<string>(?&lt;=\))|(?=[;,])</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -743,29 +790,8 @@
 					</array>
 				</dict>
 				<dict>
-					<key>begin</key>
-					<string>(?&lt;=\))(?!\{)</string>
-					<key>end</key>
-					<string>(?=\{)</string>
-					<key>name</key>
-					<string>meta.directive.return-type.flow</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#comments</string>
-						</dict>
-						<dict>
-							<key>match</key>
-							<string>=&gt;</string>
-							<key>name</key>
-							<string>invalid.illegal.arrow</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#type-def</string>
-						</dict>
-					</array>
+					<key>include</key>
+					<string>#return-type</string>
 				</dict>
 				<dict>
 					<key>begin</key>
@@ -831,6 +857,58 @@
 				</dict>
 			</array>
 		</dict>
+		<key>object</key>
+		<dict>
+			<key>begin</key>
+			<string>{</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.object.begin.es</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>}</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.object.end.es</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.structure.object.es</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<key>return-type</key>
+		<dict>
+			<key>begin</key>
+			<string>(?&lt;=\))(?!\{)</string>
+			<key>end</key>
+			<string>(?=[\{;])</string>
+			<key>name</key>
+			<string>meta.directive.return-type.flow</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.js#comments</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#type-def</string>
+				</dict>
+			</array>
+		</dict>
 		<key>round</key>
 		<dict>
 			<key>begin</key>
@@ -843,6 +921,38 @@
 					<key>include</key>
 					<string>#round</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<key>square</key>
+		<dict>
+			<key>begin</key>
+			<string>\[</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.array.begin.es</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\]</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.array.end.es</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.array.es</string>
+			<key>patterns</key>
+			<array>
 				<dict>
 					<key>include</key>
 					<string>$self</string>
@@ -865,7 +975,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>(?=[,;&gt;(){}\[\]=])</string>
+					<string>(?=[,;)\]{}=])</string>
 					<key>name</key>
 					<string>meta.scope</string>
 					<key>patterns</key>
@@ -883,25 +993,39 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.optional.flow</string>
-						</dict>
-					</dict>
-					<key>match</key>
-					<string>(?i)(\??)[_$a-zA-Z][_$a-zA-Z0-9]*</string>
-					<key>name</key>
-					<string>storage.type.flow</string>
+					<key>include</key>
+					<string>source.js#comments</string>
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>(?i)(\??)[_$a-zA-Z][_$a-zA-Z0-9]*(&lt;)</string>
+					<string>(?=\??\()</string>
+					<key>end</key>
+					<string>(?=[,;)\]{}=])</string>
+					<key>name</key>
+					<string>storage.type.function.flow</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>begin</key>
+							<string>\??(\()</string>
+							<key>end</key>
+							<string>(\))(\s*=&gt;)?</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#types</string>
+								</dict>
+							</array>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(\??)((?i)(?:[_$a-z]|@@)[_$a-z0-9]*)(&lt;)</string>
 					<key>beginCaptures</key>
 					<dict>
-						<key>1</key>
+						<key>2</key>
 						<dict>
 							<key>name</key>
 							<string>punctuation.definition.arguments.begin.es</string>
@@ -918,7 +1042,7 @@
 						</dict>
 					</dict>
 					<key>name</key>
-					<string>storage.type.flow</string>
+					<string>storage.type.${1-unnamed}.flow</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -965,6 +1089,20 @@
 						</dict>
 					</array>
 				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.optional.flow</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(\??)((?i)(?:[_$a-z]|@@)[_$a-z0-9]*)</string>
+					<key>name</key>
+					<string>storage.type.${0-unnamed}.flow</string>
+				</dict>
 			</array>
 		</dict>
 		<key>var</key>
@@ -973,30 +1111,39 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>\b(var|const|let)\b</string>
+					<string>(?:(export)\s*)?(?&lt;!import )\b(var|const|let|type)\b(?=\s*[@_$a-zA-Z0-9{\[])</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>storage.modifier.exports.es</string>
+						</dict>
+						<key>2</key>
 						<dict>
 							<key>name</key>
 							<string>storage.type.$1.es</string>
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>(?=[;}])|$</string>
+					<string>(?=[;})])|$|(?=\b(in|of)\b)</string>
 					<key>name</key>
 					<string>meta.expression.es</string>
 					<key>patterns</key>
 					<array>
 						<dict>
-							<key>include</key>
-							<string>#var-part</string>
-						</dict>
-						<dict>
 							<key>begin</key>
-							<string>,</string>
+							<string>(\G|,)</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.variable.es</string>
+								</dict>
+							</dict>
 							<key>end</key>
-							<string>(?=[,;}])</string>
+							<string>(?=[;})])|$|(?=\b(in|of)\b)</string>
 							<key>name</key>
 							<string>meta.scope.var</string>
 							<key>patterns</key>
@@ -1017,10 +1164,43 @@
 		</dict>
 		<key>var-name</key>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>variable.other.readwrite.js</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.flow</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.arguments.begin.flow.es</string>
+				</dict>
+				<key>4</key>
+				<dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>match</key>
+							<string>((?i)(?:[_$a-z]|@@)[_$a-z0-9]*)\b</string>
+							<key>name</key>
+							<string>variable.parameter.flow</string>
+						</dict>
+					</array>
+				</dict>
+				<key>5</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.arguments.end.flow.es</string>
+				</dict>
+			</dict>
 			<key>match</key>
-			<string>(?i)[_$a-zA-Z][_$a-zA-Z0-9]*</string>
-			<key>name</key>
-			<string>variable.other.readwrite.js</string>
+			<string>((?i)(?:[_$a-z]|@@)[_$a-z0-9]*)((&lt;)([^&gt;]*)(&gt;))?</string>
 		</dict>
 		<key>var-part</key>
 		<dict>
@@ -1050,11 +1230,19 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>(?=[,;}])</string>
+					<string>(?=[,;}])|$</string>
 					<key>name</key>
 					<string>meta.scope.var.right-side</string>
 					<key>patterns</key>
 					<array>
+						<dict>
+							<key>include</key>
+							<string>#object</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#round</string>
+						</dict>
 						<dict>
 							<key>include</key>
 							<string>$self</string>
