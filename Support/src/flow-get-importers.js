@@ -4,15 +4,15 @@ if (!paths) {
   process.exit();
 }
 
+var pathToName = path => path.split('/').reverse()[0].split('.')[0];
+
+var menuItemsPlist = paths.map(pathToName).map(name => `{ title = ${name}; }`);
+
 console.log(
-  '('
-  + "{header = 1; title = 'Modules that import this one';},"
-  + paths.map(function(path){
-    var title = path.split('/').reverse()[0].split('.')[0];
-    return '{title = ' + title + ';}'
-  })
-  .join(',')
-  + ')'
+  `(
+    {header = 1; title = 'Modules that import "${process.env.FILENAME}"';},
+    ${menuItemsPlist.join(',')}
+  )`
 )
 
 console.warn(

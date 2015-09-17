@@ -7,11 +7,12 @@
 	<key>command</key>
 	<string>#!/usr/bin/env bash -l
 [[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
-cd "$(dirname "$TM_FILEPATH")"
+cd "${TM_PROJECT_DIRECTORY:-$TM_DIRECTORY}"
 
+export FILENAME="$(echo "$TM_FILENAME" | cut -d'.' -f1)"
 require_cmd flow
 export FlowResponse="$(
-  flow get-importers "$TM_FILEPATH" "$TM_FILENAME" "${TM_FILENAME/%.js}" --json --from TextMate
+  flow get-importers "$TM_FILEPATH" "$FILENAME" --json --from TextMate
 )"
 # echo "FlowResponse='$FlowResponse'"
 # if [[ $? != 0 ]]; then

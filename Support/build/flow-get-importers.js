@@ -6,9 +6,14 @@ if (!paths) {
   process.exit();
 }
 
-console.log('(' + "{header = 1; title = 'Modules that import this one';}," + paths.map(function (path) {
-  var title = path.split('/').reverse()[0].split('.')[0];
-  return '{title = ' + title + ';}';
-}).join(',') + ')');
+var pathToName = function pathToName(path) {
+  return path.split('/').reverse()[0].split('.')[0];
+};
+
+var menuItemsPlist = paths.map(pathToName).map(function (name) {
+  return '{ title = ' + name + '; }';
+});
+
+console.log('(\n    {header = 1; title = \'Modules that import "' + process.env.FILENAME + '"\';},\n    ' + menuItemsPlist.join(',') + '\n  )');
 
 console.warn(paths.join('\n'));
