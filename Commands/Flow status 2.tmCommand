@@ -12,23 +12,18 @@
 
 cd "$(dirname "$TM_FILEPATH")"
 
-require_cmd flow
-
-GLAR="$(flow status &amp;&amp; cat | flow check-contents "$TM_FILENAME")"
-
-if [[ $? == 0 ]]; then
-  exit_show_tool_tip "No flow errors!"
-fi
+# export FlowResponse="$(
+#   cat | flow check-contents "$TM_FILEPATH" --json 2&gt; "$TMPDIR/flow-stderr.log"
+# )"
+export FlowResponse="$(
+  flow status --json 2&gt; "$TMPDIR/flow-stderr.log"
+)"
+export FlowError="$(&lt;"$TMPDIR/flow-stderr.log")"
 
 html_header "Flow Status"
-css &lt;&lt;CSS
-* {font-size:12px}
-CSS
 
-echo "$GLAR" \
-  | pre \
-  | sed -E 's;(/[a-zA-Z][^:]+):([0-9]+):([0-9]+),?([0-9]+:)*;&lt;a href="txmt://open?url=file://\1\&amp;line=\2\&amp;column=\3"&gt;\1&lt;/a&gt;;g' \
-  | sed -E "s;&gt;$TM_DIRECTORY/;&gt;;g" \
+require_cmd node
+node "$TM_BUNDLE_SUPPORT/build/flow-check-contents.js"
 
 html_footer
 exit_show_html
@@ -37,8 +32,6 @@ exit_show_html
 	<string>document</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^V</string>
 	<key>name</key>
 	<string>Flow status</string>
 	<key>outputCaret</key>
@@ -49,6 +42,8 @@ exit_show_html
 	<string>discard</string>
 	<key>scope</key>
 	<string>source.js.jsx</string>
+	<key>semanticClass</key>
+	<string>callback.document.did-save</string>
 	<key>uuid</key>
 	<string>FA79F210-7974-4400-AC50-B2105628D8BA</string>
 	<key>version</key>

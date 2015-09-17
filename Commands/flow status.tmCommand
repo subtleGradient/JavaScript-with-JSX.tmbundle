@@ -12,30 +12,15 @@
 
 cd "$(dirname "$TM_FILEPATH")"
 
-FlowResponse="$(
-  cat | flow check-contents "$TM_FILENAME" 2&gt; "$TMPDIR/flow-stderr.log"
+export FlowResponse="$(
+  cat | flow check-contents "$TM_FILEPATH" --json 2&gt; "$TMPDIR/flow-stderr.log"
 )"
-FlowError="$(&lt;"$TMPDIR/flow-stderr.log")"
+export FlowError="$(&lt;"$TMPDIR/flow-stderr.log")"
 
-# if [[ $? == 0 ]]; then
-#   exit_show_tool_tip "No flow errors!"
-# fi
+html_header "Flow Check Contents $TM_FILENAME"
 
-if [[ "$FlowError" == *"Could not find a .flowconfig"* ]]; then
-  exit_show_tool_tip "Didn't check for errors because
-Flow couldn't find a .flowconfig"
-fi
-
-html_header "Flow Status"
-css &lt;&lt;CSS
-* {font-size:12px}
-CSS
-
-echo "$FlowResponse" \
-  | sed 's/,/-/g' \
-  | pre \
-  | sed -E 's;(/[a-zA-Z][^:]+):([^ ]+);&lt;a href="txmt://open?url=file://\1\&amp;line=\2"&gt;\1&lt;/a&gt;;g' \
-  | sed -E "s;&gt;$TM_DIRECTORY/;&gt;;g" \
+require_cmd node
+node "$TM_BUNDLE_SUPPORT/build/flow-check-contents.js"
 
 html_footer
 exit_show_html
@@ -44,6 +29,8 @@ exit_show_html
 	<string>document</string>
 	<key>inputFormat</key>
 	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^V</string>
 	<key>name</key>
 	<string>Flow check contents</string>
 	<key>outputCaret</key>
@@ -54,8 +41,6 @@ exit_show_html
 	<string>discard</string>
 	<key>scope</key>
 	<string>source.js.jsx</string>
-	<key>semanticClass</key>
-	<string>callback.document.did-save</string>
 	<key>uuid</key>
 	<string>3FFCE570-C99D-4626-84AE-1CE39329AB85</string>
 	<key>version</key>
