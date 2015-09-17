@@ -8,6 +8,8 @@
 	<string>#!/usr/bin/env bash -l
 cd "$(dirname "$TM_FILEPATH")"
 
+# echo "cat '$TM_FILEPATH' | flow autocomplete '$TM_FILEPATH' $TM_LINE_NUMBER $TM_COLUMN_NUMBER" | pbcopy
+
 suggestions_raw="$(
   cat \
     | flow autocomplete "$TM_FILEPATH" $TM_LINE_NUMBER $TM_COLUMN_NUMBER \
