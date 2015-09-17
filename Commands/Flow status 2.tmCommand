@@ -26,10 +26,9 @@ require_cmd node
 node "$TM_BUNDLE_SUPPORT/build/flow-check-contents.js"
 
 html_footer
-exit_show_html
 </string>
 	<key>input</key>
-	<string>document</string>
+	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>name</key>
@@ -37,9 +36,9 @@ exit_show_html
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>
-	<string>text</string>
+	<string>html</string>
 	<key>outputLocation</key>
-	<string>discard</string>
+	<string>newWindow</string>
 	<key>scope</key>
 	<string>source.js.jsx</string>
 	<key>semanticClass</key>

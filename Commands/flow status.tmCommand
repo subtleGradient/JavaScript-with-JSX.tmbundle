@@ -17,13 +17,12 @@ export FlowResponse="$(
 )"
 export FlowError="$(&lt;"$TMPDIR/flow-stderr.log")"
 
-html_header "Flow Check Contents $TM_FILENAME"
+html_header "Flow Check Contents"
 
 require_cmd node
 node "$TM_BUNDLE_SUPPORT/build/flow-check-contents.js"
 
 html_footer
-exit_show_html
 </string>
 	<key>input</key>
 	<string>document</string>
@@ -38,7 +37,7 @@ exit_show_html
 	<key>outputFormat</key>
 	<string>html</string>
 	<key>outputLocation</key>
-	<string>discard</string>
+	<string>newWindow</string>
 	<key>scope</key>
 	<string>source.js.jsx</string>
 	<key>uuid</key>
